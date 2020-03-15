@@ -50,8 +50,9 @@ class GenericAdapter<T: AdapterObject>(val mList : List<T>) :
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charString = constraint.toString()
+                var searchResult = listOf<T>()
                 if(charString.isEmpty()) {
-                    searchList = mList
+                    searchResult = mList
                 } else {
                     val filteredList = ArrayList<T>()
                     mList.forEach {row ->
@@ -59,11 +60,11 @@ class GenericAdapter<T: AdapterObject>(val mList : List<T>) :
                             filteredList.add(row)
                         }
                     }
-                    searchList = filteredList
+                    searchResult = filteredList
                 }
 
                 val filterResults = FilterResults()
-                filterResults.values = searchList
+                filterResults.values = searchResult
                 return filterResults
             }
 
